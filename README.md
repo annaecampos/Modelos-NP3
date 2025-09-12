@@ -97,7 +97,7 @@ Para utilizar os comandos abaixo, certifique-se de ter as seguintes ferramentas 
 
 Mais informações detalhadas sobre os modelos podem ser encontradas nos trabalhos relacionados:
 
-- **SUPORTE À DECISÃO EM PASTAGENS: ANÁLISE ESPAÇO-TEMPORAL E APRENDIZADO DE MÁQUINA PARA PREDIÇÃO DA DISPONIBILIDADE DE FORRAGEM NO CONTEXTO DE SMART FARMING**: [ACESSE AQUI](https://dspace.unipampa.edu.br/bitstream/riu/4741/1/DIS%20Leonardo%20Schulte%20%202018.pdf)  
+- **SUPORTE À DECISÃO EM PASTAGENS: ANÁLISE ESPAÇO-TEMPORAL E APRENDIZADO DE MÁQUINA PARA PREDIÇÃO DA DISPONIBILIDADE DE FORRAGEM NO CONTEXTO DE SMART FARMING**: [ACESSE AQUI](https://repositorio.unipampa.edu.br/server/api/core/bitstreams/950bd0ed-b72e-4d06-8a28-0f765ddcdbea/content)  
 - **TOUCEIRATECH: UM FARM MANAGEMENT INFORMATION SYSTEM PARA PECUÁRIA DE PRECISÃO BASEADO EM PREDIÇÃO COM REDES NEURAIS RECORRENTES**: [ACESSE AQUI](https://repositorio.unipampa.edu.br/bitstreams/e888f087-4356-4ef2-aef9-d04e07c8affb/download)  
 - **IMPACTOS DA FERRAMENTA KERASTUNER EM MODELO DE PREDIÇÃO BASEADO EM LSTM PARA PECUÁRIA SUSTENTÁVEL**: [ACESSE AQUI](https://sol.sbc.org.br/index.php/eradrs/article/view/28012/27822)  
 - **ANÁLISE INSTRUMENTAL DE MODELOS RNN PARA AGRICULTURA DIGITAL VISANDO COMPUTAÇÃO VERDE**: [ACESSE AQUI](https://ei.unipampa.edu.br/uploads/evt/arq_trabalhos/29643/etp1_resumo_expandido_29643.pdf)  
@@ -105,7 +105,7 @@ Mais informações detalhadas sobre os modelos podem ser encontradas nos trabalh
 - **ÁRVORES DE DECISÃO COMO SOLUÇÃO PARA AJUSTE DE MODELO DE PREDIÇÃO PARA AGRICULTURA DIGITAL**: [ACESSE AQUI](http://www2.bage.ifsul.edu.br/encif/inscricao/pdf/2024110523590338801.pdf)  
 - **ANÁLISE DO DESEMPENHO E PROPAGAÇÃO DO ERRO EM MODELOS DE PREDIÇÃO PARA AGRICULTURA DIGITAL SUSTENTÁVEL**: [ACESSE AQUI](https://static.even3.com/anais/982835.pdf?v=638932945030476671)  
 - **ANÁLISE DO EFEITO DE ÍNDICES CLIMÁTICOS E PLUVIOMÉTRICOS EM MODELOS DE RNN LSTM PARA PECUÁRIA DE PRECISÃO**: [ACESSE AQUI](https://static.even3.com/anais/996261.pdf?v=638932947430687563)  
-- **INSTRUMENTAÇÃO DAS TÉCNICAS ÁRVORE DE DECISÃO E KERASTUNER PARA AUTOAJUSTE DE REDES NEURAIS RECORRENTES GRU NA PERSPECTIVA DE COMPUTAÇÃO SUSTENTÁVEL**: [ACESSE AQUI](https://sol.sbc.org.br/index.php/eradrs/article/view/35364)  
+- **INSTRUMENTAÇÃO DAS TÉCNICAS ÁRVORE DE DECISÃO E KERASTUNER PARA AUTOAJUSTE DE REDES NEURAIS RECORRENTES GRU NA PERSPECTIVA DE COMPUTAÇÃO SUSTENTÁVEL**: [ACESSE AQUI](https://sol.sbc.org.br/index.php/eradrs/article/view/35364/35153)  
 
 
 ---
