@@ -1,0 +1,29 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Modelos NP3 — dependências Python
+# Python 3.10 – 3.13  (recomendado 3.12 para máxima compatibilidade com TF)
+#
+# Para instalar:
+#   python3 -m venv .venv
+#   source .venv/bin/activate
+#   pip install -r requirements.txt
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Deep Learning ─────────────────────────────────────────────────────────────
+tensorflow>=2.19.0
+keras>=3.8.0
+keras-tuner>=1.4.7
+
+# ── Ciência de dados ──────────────────────────────────────────────────────────
+numpy>=2.1.0
+pandas>=2.2.3
+scipy>=1.15.0
+scikit-learn>=1.6.1
+
+# ── Visualização ──────────────────────────────────────────────────────────────
+matplotlib>=3.10.0
+
+# ── Banco de dados (PostgreSQL) ───────────────────────────────────────────────
+psycopg2-binary>=2.9.10
+
+# ── Opcional: plotar arquitetura da rede (requer: sudo apt install graphviz)
+pydot>=3.0.4
