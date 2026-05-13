@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Ambiente virtual
+.venv/
+venv/
+env/
+
+# Keras Tuner
+KT/
+
+# Arquivos gerados pelos modelos (logs, gráficos, pastas de execução)
+*.txt
+*.png
+*.csv
+*.log
+20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]*/
+
+# Modelo salvo
+*.h5
+*.keras
+*.pb
+
+# IDEs
+.idea/
+.vscode/
+*.code-workspace
+
+# Sistema
+.DS_Store
+Thumbs.db
