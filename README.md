@@ -148,6 +148,7 @@ Cada execução cria um subdiretório com timestamp contendo:
 
 ## Suporte
 
+- **Ana Campos** - anacampos.aluno@unipampa.edu.br
 - **Bianca Durgante** — biancadurgante.aluno@unipampa.edu.br
 - **Davi Lemos** — davilemos.aluno@unipampa.edu.br
 - **Leonardo Pinho** — leonardopinho@unipampa.edu.br
