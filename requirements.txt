@@ -27,3 +27,17 @@ psycopg2-binary>=2.9.10
 
 # ── Opcional: plotar arquitetura da rede (requer: sudo apt install graphviz)
 pydot>=3.0.4
+
+# ── SENTINEL-PIPELINE — Copernicus + geoespacial ──────────────────────────────
+# Busca no catálogo STAC do Copernicus Data Space Ecosystem
+pystac-client>=0.7.0
+# Leitura de bandas raster via /vsicurl/ (sem download de tiles completos)
+rasterio>=1.4.0
+# Manipulação de geometrias vetoriais
+shapely>=2.0.0
+# Reprojeção de coordenadas
+pyproj>=3.6.0
+# Requisições HTTP (autenticação OAuth2 CDSE)
+requests>=2.32.0
+# Serialização de modelos
+joblib>=1.4.0
