@@ -41,10 +41,19 @@ def main() -> None:
     f_indices = DATA_DIR / "indices_sentinel2.csv"
     f_saida   = DATA_DIR / "dataset_final.csv"
 
-    for f in [f_campo, f_indices]:
-        if not f.exists():
-            log.error("Arquivo não encontrado: %s", f)
-            raise SystemExit(1)
+    if not f_campo.exists():
+        log.error(
+            "Arquivo não encontrado: %s\nExecute primeiro: python 01_extrai_banco.py",
+            f_campo,
+        )
+        raise SystemExit(1)
+    if not f_indices.exists():
+        log.error(
+            "Arquivo não encontrado: %s\nExecute antes: python 02_busca_indices.py "
+            "(gera índices Sentinel-2 a partir de dados_campo.csv)",
+            f_indices,
+        )
+        raise SystemExit(1)
 
     # ── Carrega ───────────────────────────────────────────────────────────────
     df_campo = pd.read_csv(f_campo,   sep=";", parse_dates=["data"])

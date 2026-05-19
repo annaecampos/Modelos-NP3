@@ -6,7 +6,7 @@ Fluxo por data de medição:
   1. API OData do CDSE: busca cenas S2 L2A na janela de ±JANELA_DIAS dias
   2. Seleciona a cena com menos nuvens e mais próxima da data
   3. Navega a árvore de arquivos do produto (OData Nodes) para achar cada banda
-  4. Lê apenas os pixels da AOI (subárea) via /vsicurl/ + token Bearer
+  4. Baixa cada JP2 via OData (sem Range — vsicurl não funciona) + média na AOI (rasterio MemoryFile)
   5. Calcula NDVI, EVI, NDRE, SAVI + mantém reflectâncias brutas
 
 Saída:
@@ -26,6 +26,7 @@ import numpy as np
 import pandas as pd
 import requests
 import rasterio
+from rasterio.io import MemoryFile
 from rasterio.mask import mask as rio_mask
 from rasterio.warp import transform_geom
 from shapely.geometry import mapping, shape
@@ -191,10 +192,19 @@ def achar_urls_bandas(
 ) -> dict[str, str]:
     """
     Navega a árvore OData e retorna URL de download /$value para cada banda.
+
+    O CDSE usa ``Nodes(NOME)/Nodes`` (parênteses, sem aspas no nome). O formato
+    ``Nodes('NOME')`` provoca HTTP 403 nas listagens aninhadas.
     """
-    safe = f"{produto_name}.SAFE"
     base = f"{ODATA_DOWNLOAD}/Products({produto_id})"
     urls: dict[str, str] = {}
+
+    def _nodes_path(*segmentos: str) -> str:
+        """Monta ``.../Nodes(seg1)/Nodes(seg2)/...`` conforme documentação CDSE."""
+        url = f"{base}/Nodes"
+        for seg in segmentos:
+            url = f"{url}({seg})/Nodes"
+        return url
 
     # Nível 1: lista nodes raiz do produto
     nodes_raiz = _get_nodes(f"{base}/Nodes", token)
@@ -213,7 +223,7 @@ def achar_urls_bandas(
     safe_id = safe_node["Id"]
 
     # Nível 2: dentro do SAFE, busca pasta GRANULE
-    nodes_safe = _get_nodes(f"{base}/Nodes('{safe_id}')/Nodes", token)
+    nodes_safe = _get_nodes(_nodes_path(safe_id), token)
     granule_node = next((n for n in nodes_safe if n["Id"] == "GRANULE"), None)
     if not granule_node:
         log.warning("  Pasta GRANULE não encontrada em %s | nodes: %s",
@@ -221,9 +231,7 @@ def achar_urls_bandas(
         return urls
 
     # Nível 3: lista granules (geralmente só 1)
-    nodes_granule = _get_nodes(
-        f"{base}/Nodes('{safe_id}')/Nodes('GRANULE')/Nodes", token
-    )
+    nodes_granule = _get_nodes(_nodes_path(safe_id, "GRANULE"), token)
     if not nodes_granule:
         log.warning("  GRANULE vazio para %s", produto_name)
         return urls
@@ -232,8 +240,7 @@ def achar_urls_bandas(
 
     # Nível 4: lista IMG_DATA
     nodes_img = _get_nodes(
-        f"{base}/Nodes('{safe_id}')/Nodes('GRANULE')"
-        f"/Nodes('{granule_id}')/Nodes('IMG_DATA')/Nodes",
+        _nodes_path(safe_id, "GRANULE", granule_id, "IMG_DATA"),
         token,
     )
     resolucoes_disponiveis = [n["Id"] for n in nodes_img]
@@ -247,17 +254,16 @@ def achar_urls_bandas(
             if res not in resolucoes_disponiveis:
                 continue
             node_res = _get_nodes(
-                f"{base}/Nodes('{safe_id}')/Nodes('GRANULE')"
-                f"/Nodes('{granule_id}')/Nodes('IMG_DATA')/Nodes('{res}')/Nodes",
+                _nodes_path(safe_id, "GRANULE", granule_id, "IMG_DATA", res),
                 token,
             )
             for arq in node_res:
                 nome = arq["Id"]
                 if f"_{banda}_" in nome and nome.endswith(".jp2"):
                     urls[banda] = (
-                        f"{base}/Nodes('{safe_id}')/Nodes('GRANULE')"
-                        f"/Nodes('{granule_id}')/Nodes('IMG_DATA')"
-                        f"/Nodes('{res}')/Nodes('{nome}')/$value"
+                        f"{base}/Nodes({safe_id})/Nodes(GRANULE)"
+                        f"/Nodes({granule_id})/Nodes(IMG_DATA)"
+                        f"/Nodes({res})/Nodes({nome})/$value"
                     )
                     break
             if banda in urls:
@@ -269,20 +275,45 @@ def achar_urls_bandas(
 
 # ── Extração de pixels ────────────────────────────────────────────────────────
 
-def extrair_media_banda(url: str, geojson_wgs84: dict) -> float | None:
-    """Lê apenas os pixels da AOI via /vsicurl/ e retorna a média da reflectância."""
+def _bytes_jp2_url(
+    url: str, session: requests.Session, cache: dict[str, bytes]
+) -> bytes | None:
+    """GET completo do JP2 (endpoint OData $value não suporta HTTP Range para /vsicurl/)."""
+    if url in cache:
+        return cache[url]
     try:
+        r = session.get(url, timeout=600)
+        r.raise_for_status()
+    except Exception as exc:
+        log.warning("  Download JP2 falhou (%s…): %s", url[:70], exc)
+        return None
+    cache[url] = r.content
+    return r.content
+
+
+def extrair_media_banda(
+    url: str,
+    geojson_wgs84: dict,
+    session: requests.Session,
+    jp2_cache: dict[str, bytes],
+) -> float | None:
+    """Abre o JP2 em memória e retorna a reflectância média na AOI (WGS84)."""
+    try:
+        blob = _bytes_jp2_url(url, session, jp2_cache)
+        if blob is None:
+            return None
         geom = shape(geojson_wgs84)
-        with rasterio.open(f"/vsicurl/{url}") as src:
-            geom_img = shape(
-                transform_geom("EPSG:4326", src.crs.to_string(), mapping(geom))
-            )
-            out, _ = rio_mask(src, [mapping(geom_img)], crop=True, nodata=0)
-            pixels = out[0]
-            validos = pixels[(pixels > 0) & (pixels < 65535)]
-            if len(validos) == 0:
-                return None
-            return float(validos.mean()) / ESCALA_S2
+        with MemoryFile(blob) as mem:
+            with mem.open() as src:
+                geom_img = shape(
+                    transform_geom("EPSG:4326", src.crs.to_string(), mapping(geom))
+                )
+                out, _ = rio_mask(src, [mapping(geom_img)], crop=True, nodata=0)
+                pixels = out[0]
+                validos = pixels[(pixels > 0) & (pixels < 65535)]
+                if len(validos) == 0:
+                    return None
+                return float(validos.mean()) / ESCALA_S2
     except Exception as exc:
         log.debug("Erro ao ler banda (%s...): %s", url[:60], exc)
         return None
@@ -380,12 +411,15 @@ def main() -> None:
         else:
             log.warning("  Nenhuma banda encontrada — pulando data %s", data.date())
 
+        jp2_por_url: dict[str, bytes] = {}
         for _, row in subareas.iterrows():
             geom_json = json.loads(row["geometria"])
             bandas_vals: dict[str, float | None] = {}
 
             for banda, url in urls_bandas.items():
-                bandas_vals[banda] = extrair_media_banda(url, geom_json)
+                bandas_vals[banda] = extrair_media_banda(
+                    url, geom_json, session, jp2_por_url
+                )
 
             indices = calcular_indices(bandas_vals)
             resultados.append({
@@ -405,10 +439,15 @@ def main() -> None:
     df_out = pd.DataFrame(resultados)
     df_out.to_csv(saida, index=False, sep=";")
 
-    total    = len(df_out)
-    com_ndvi = df_out["ndvi"].notna().sum()
+    total = len(df_out)
+    com_ndvi = int(df_out["ndvi"].notna().sum()) if "ndvi" in df_out.columns else 0
     log.info("Salvo: %s", saida)
-    log.info("Linhas: %d | com NDVI: %d (%.0f%%)", total, com_ndvi, 100 * com_ndvi / total)
+    log.info(
+        "Linhas: %d | com NDVI: %d (%.0f%%)",
+        total,
+        com_ndvi,
+        100 * com_ndvi / total if total else 0,
+    )
 
 
 if __name__ == "__main__":
