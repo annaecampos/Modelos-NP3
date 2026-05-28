@@ -32,3 +32,15 @@ KT/
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Arquivos pesados do Sentinel
+SENTINEL-PIPELINE/dados/produtos_sentinel/
+SENTINEL-PIPELINE/dados/**/*.zip
+SENTINEL-PIPELINE/dados/**/*.SAFE/
+
+# Modelos binários
+SENTINEL-PIPELINE/resultados_rf/**/modelo_rf.joblib
+
+# Cache Python
+__pycache__/
+*.pyc

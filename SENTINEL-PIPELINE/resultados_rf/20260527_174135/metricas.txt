@@ -1,0 +1,18 @@
+Alvo: mstotal
+Data: 2026-05-27 17:41:39.070199
+Registros de treino: 680
+
+Cross-validation 5-fold temporal:
+  RMSE: 2113.35 ± 562.93
+  R²  : 0.219 ± 0.105
+
+Treino completo:
+  RMSE: 992.79
+  MAE : 666.76
+  R²  : 0.842
+
+Por piquete:
+  Piquete 1: R²=0.779  RMSE=1214.2  MAE=834.1  n=180
+  Piquete 2: R²=0.778  RMSE=710.9  MAE=485.2  n=177
+  Piquete 3: R²=0.809  RMSE=1184.9  MAE=810.9  n=163
+  Piquete 4: R²=0.722  RMSE=735.6  MAE=532.5  n=160
