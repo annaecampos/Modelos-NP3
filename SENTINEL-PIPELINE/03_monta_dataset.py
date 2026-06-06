@@ -111,7 +111,7 @@ def main() -> None:
     # ── Ordena colunas ────────────────────────────────────────────────────────
     colunas_id = ["data", "idpotreiro", "idsubarea", "data_imagem"]
     colunas_alvo = ["mstotal", "msanoni", "msoutras", "media"]
-    colunas_sat  = [c for c in df.columns if c.startswith("s2_") or c in ("ndvi", "evi", "ndre", "savi")]
+    colunas_sat  = [c for c in df.columns if c.startswith("s2_") or c in ("ndvi", "evi", "ndre", "savi", "nbr", "ndmi")]
     colunas_clim = ["tmin", "tmed", "tmax", "umidade", "velocidadevento",
                     "radiacaosolar", "chuva", "somatermica", "def", "exc"]
     colunas_feat = ["dentrofora", "mes", "ano", "dias_desde_ult_medicao"] + \
