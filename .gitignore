@@ -25,6 +25,14 @@ KT/
 !SENTINEL-PIPELINE/resultados_rf/**/run_manifest.json
 !SENTINEL-PIPELINE/resultados_rf/**/metricas.txt
 
+# Treinos experimentais (pastas separadas)
+!SENTINEL-PIPELINE/treinos/**/experimentos.jsonl
+!SENTINEL-PIPELINE/treinos/**/REGISTRO.md
+!SENTINEL-PIPELINE/treinos/REGISTRO_GERAL.md
+!SENTINEL-PIPELINE/treinos/**/resultados/**/run_manifest.json
+!SENTINEL-PIPELINE/treinos/**/resultados/**/metricas.txt
+!SENTINEL-PIPELINE/treinos/**/dados/*.csv
+
 # Modelo salvo
 *.h5
 *.keras

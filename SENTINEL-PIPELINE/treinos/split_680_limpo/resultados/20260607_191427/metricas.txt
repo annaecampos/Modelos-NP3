@@ -1,0 +1,7 @@
+Tipo treino: split_680_limpo
+Dataset: dataset.csv
+Data: 2026-06-07 19:14:29.018730
+
+Treino (n=470): R²=0.845 RMSE=1043.1
+Validação (n=94): R²=-0.095 RMSE=1748.7
+Teste (n=116): R²=0.108 RMSE=2275.0

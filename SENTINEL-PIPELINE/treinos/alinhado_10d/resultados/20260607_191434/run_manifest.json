@@ -1,0 +1,97 @@
+{
+  "run_id": "20260607_191434",
+  "executado_em": "2026-06-07T19:14:38.401279",
+  "script": "treinar.py",
+  "notas": "Estratégia alinhamento ≤10 dias — menos ruído temporal.",
+  "config": {
+    "protocolo": "split_treino_validacao_teste",
+    "dataset_arquivo": "dataset.csv",
+    "alvo": "mstotal",
+    "split_treino_fim": "2018-08-20",
+    "split_valid_fim": "2019-01-14",
+    "max_dias_campo_imagem": 10,
+    "n_estimators": 500,
+    "max_features": "sqrt",
+    "min_samples_leaf": 2,
+    "random_state": 42,
+    "n_jobs": -1
+  },
+  "dataset": {
+    "linhas_total": 623,
+    "treino": 413,
+    "validacao": 94,
+    "teste": 116
+  },
+  "features": [
+    "dentrofora",
+    "tmin",
+    "tmed",
+    "tmax",
+    "umidade",
+    "velocidadevento",
+    "radiacaosolar",
+    "chuva",
+    "somatermica",
+    "def",
+    "exc",
+    "s2_b02",
+    "s2_b04",
+    "s2_b05",
+    "s2_b06",
+    "s2_b07",
+    "s2_b08",
+    "s2_b11",
+    "s2_b12",
+    "ndvi",
+    "evi",
+    "ndre",
+    "savi",
+    "dias_campo_imagem",
+    "mes",
+    "ano",
+    "dias_desde_ult_medicao",
+    "est_inverno",
+    "est_outono",
+    "est_primavera",
+    "est_verao"
+  ],
+  "metricas": {
+    "treino": {
+      "nome": "Treino",
+      "n": 413,
+      "r2": 0.829002201932223,
+      "rmse": 1135.2443950672184,
+      "mae": 750.1305306681846
+    },
+    "validacao": {
+      "nome": "Validação",
+      "n": 94,
+      "r2": -0.0434663522950447,
+      "rmse": 1707.4502944371343,
+      "mae": 1382.3815285588414
+    },
+    "teste": {
+      "nome": "Teste",
+      "n": 116,
+      "r2": 0.10469581409139361,
+      "rmse": 2278.981357664017,
+      "mae": 1618.1086953550819
+    }
+  },
+  "arquivos": [
+    "importancia_features.png",
+    "metricas.txt",
+    "modelo_rf.joblib",
+    "real_vs_predito.png",
+    "residuos.png"
+  ],
+  "tipo_treino": "alinhado_10d",
+  "mudancas_vs_anterior": [
+    "Primeiro experimento nesta pasta de treino."
+  ],
+  "registrado_em": "2026-06-07T22:14:38.401664+00:00",
+  "git": {
+    "branch": "desconhecido",
+    "commit": "desconhecido"
+  }
+}

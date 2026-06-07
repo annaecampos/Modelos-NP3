@@ -1,0 +1,7 @@
+Tipo treino: alinhado_10d
+Dataset: dataset.csv
+Data: 2026-06-07 19:14:36.779729
+
+Treino (n=413): R²=0.829 RMSE=1135.2
+Validação (n=94): R²=-0.043 RMSE=1707.5
+Teste (n=116): R²=0.105 RMSE=2279.0
