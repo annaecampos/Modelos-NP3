@@ -1,0 +1,57 @@
+{
+  "run_id": "20260606_100433",
+  "executado_em": "2026-06-06 10:04:35.677715",
+  "script": "04_modelo_rf.py",
+  "git": {
+    "branch": "backfill",
+    "commit": "backfill"
+  },
+  "notas": "Repetição pós-merge docs→main; mesmo split e mesmo resultado.",
+  "config": {
+    "protocolo": "split_treino_validacao_teste",
+    "dataset_arquivo": "dataset_final_corrigido_sem_outlier.csv",
+    "alvo": "mstotal",
+    "split_treino_fim": "2018-08-20",
+    "split_valid_fim": "2019-01-14",
+    "n_estimators": 500,
+    "max_features": "sqrt",
+    "min_samples_leaf": 2,
+    "random_state": 42
+  },
+  "dataset": {
+    "linhas_total": 680,
+    "treino": 470,
+    "validacao": 94,
+    "teste": 116
+  },
+  "features": [],
+  "metricas": {
+    "treino": {
+      "n": 470,
+      "rmse": 1043.14,
+      "r2": 0.845
+    },
+    "validacao": {
+      "n": 94,
+      "rmse": 1748.72,
+      "r2": -0.095
+    },
+    "teste": {
+      "n": 116,
+      "rmse": 2274.97,
+      "r2": 0.108
+    }
+  },
+  "arquivos": [
+    "importancia_features.png",
+    "metricas.txt",
+    "modelo_rf.joblib",
+    "real_vs_predito.png",
+    "residuos.png"
+  ],
+  "backfill": true,
+  "mudancas_vs_anterior": [
+    "Notas: Primeiro treino com split treino/val/teste (orientação do professor). → Repetição pós-merge docs→main; mesmo split e mesmo resultado."
+  ],
+  "registrado_em": "2026-06-07T21:53:20.722736+00:00"
+}

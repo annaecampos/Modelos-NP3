@@ -1,0 +1,29 @@
+Alvo: mstotal
+Data: 2026-05-29 09:53:33.634902
+Dataset: dataset_final_corrigido_sem_outlier.csv
+
+Split temporal (treino / validação / teste):
+  treino ≤ 2018-08-20 | validação 2018-08-20 < data ≤ 2019-01-14 | teste > 2019-01-14
+
+Treino (n=470):
+  RMSE: 1043.14
+  MAE : 702.15
+  R²  : 0.845
+
+Validação (n=94):
+  RMSE: 1748.72
+  MAE : 1394.47
+  R²  : -0.095
+
+Teste (n=116):
+  RMSE: 2274.97
+  MAE : 1616.97
+  R²  : 0.108
+
+Métrica principal da dissertação: TESTE (conjunto nunca usado no treino).
+
+Por piquete (teste):
+  Piquete 1: R²=-0.273  RMSE=2687.9  MAE=2056.7  n=30
+  Piquete 2: R²=-0.702  RMSE=1309.4  MAE=1116.6  n=30
+  Piquete 3: R²=-0.374  RMSE=3199.7  MAE=2205.1  n=26
+  Piquete 4: R²=0.284  RMSE=1483.1  MAE=1167.9  n=30

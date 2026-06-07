@@ -34,6 +34,21 @@ MAX_CLOUD = 20
 # Opções: "mstotal" | "msanoni" | "msoutras" | "media"
 ALVO = "mstotal"
 
+# ── Dataset e split temporal (treino / validação / teste) ─────────────────────
+# Arquivo gerado pelo passo 03 (ou dataset com animais, se preferir)
+DATASET_ARQUIVO = "dataset_final_corrigido_sem_outlier.csv"
+
+# Cortes inclusivos por data de medição de campo (ordem cronológica):
+#   treino : data <= SPLIT_TREINO_FIM
+#   validação : SPLIT_TREINO_FIM < data <= SPLIT_VALID_FIM
+#   teste  : data > SPLIT_VALID_FIM  (conjunto final — modelo nunca viu no treino)
+SPLIT_TREINO_FIM = "2018-08-20"
+SPLIT_VALID_FIM = "2019-01-14"
+
+# Anotação da próxima execução (vai para o registro de experimentos — qualificação/dissertação)
+# Ex.: "Teste com animais após merge docs→main"
+RUN_NOTAS = ""
+
 # ── Bandas Sentinel-2 L2A a extrair ──────────────────────────────────────────
 # Resolução nativa: B02/B04/B08 = 10 m  |  B05/B06/B07/B11/B12 = 20 m
 BANDAS = ["B02", "B04", "B05", "B06", "B07", "B08", "B11", "B12"]

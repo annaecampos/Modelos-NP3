@@ -19,6 +19,12 @@ KT/
 *.log
 20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]*/
 
+# Registro de experimentos RF — versionar (qualificação / dissertação)
+!SENTINEL-PIPELINE/resultados_rf/experimentos.jsonl
+!SENTINEL-PIPELINE/resultados_rf/REGISTRO_EXPERIMENTOS.md
+!SENTINEL-PIPELINE/resultados_rf/**/run_manifest.json
+!SENTINEL-PIPELINE/resultados_rf/**/metricas.txt
+
 # Modelo salvo
 *.h5
 *.keras

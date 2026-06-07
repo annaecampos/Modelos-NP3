@@ -1,0 +1,49 @@
+{
+  "run_id": "20260527_174135",
+  "executado_em": "2026-05-27 17:41:39.070199",
+  "script": "04_modelo_rf.py",
+  "git": {
+    "branch": "backfill",
+    "commit": "backfill"
+  },
+  "notas": "Baseline Rafael/docs — dataset corrigido 680 linhas. CV 5-fold.",
+  "config": {
+    "protocolo": "cv_5fold_temporal + treino_completo",
+    "dataset_arquivo": "dataset_final_corrigido_sem_outlier.csv",
+    "alvo": "mstotal",
+    "split_treino_fim": null,
+    "split_valid_fim": null,
+    "n_estimators": "300_cv + 500_final",
+    "max_features": "sqrt",
+    "min_samples_leaf": 2,
+    "random_state": 42
+  },
+  "dataset": {
+    "linhas_total": 680,
+    "treino": null,
+    "validacao": null,
+    "teste": null
+  },
+  "features": [],
+  "metricas": {
+    "cv": {
+      "rmse": 2113.35,
+      "r2": 0.219,
+      "n": null,
+      "r2_std": 0.105
+    }
+  },
+  "arquivos": [
+    "importancia_features.png",
+    "metricas.txt",
+    "real_vs_predito.png",
+    "residuos.png"
+  ],
+  "backfill": true,
+  "mudancas_vs_anterior": [
+    "Dataset: 'dataset_final.csv' → 'dataset_final_corrigido_sem_outlier.csv'",
+    "R² cv: 0.139 → 0.219",
+    "Notas: Baseline Ana — dataset_final.csv sem limpeza (1463 linhas, duplicatas). CV 5-fold. → Baseline Rafael/docs — dataset corrigido 680 linhas. CV 5-fold."
+  ],
+  "registrado_em": "2026-06-07T21:53:20.716412+00:00"
+}
